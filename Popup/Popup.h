@@ -99,14 +99,14 @@ typedef void (^blocky)(void);
 //Type of blurred background behind Popup
 @property (nonatomic, assign) PopupBackGroundBlurType backgroundBlurType;
 
-@property (nonatomic, assign) UIColor *backgroundColor;
-@property (nonatomic, assign) UIColor *borderColor;
-@property (nonatomic, assign) UIColor *titleColor;
-@property (nonatomic, assign) UIColor *subTitleColor;
-@property (nonatomic, assign) UIColor *successBtnColor;
-@property (nonatomic, assign) UIColor *successTitleColor;
-@property (nonatomic, assign) UIColor *cancelBtnColor;
-@property (nonatomic, assign) UIColor *cancelTitleColor;
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *borderColor;
+@property (nonatomic, strong) UIColor *titleColor;
+@property (nonatomic, strong) UIColor *subTitleColor;
+@property (nonatomic, strong) UIColor *successBtnColor;
+@property (nonatomic, strong) UIColor *successTitleColor;
+@property (nonatomic, strong) UIColor *cancelBtnColor;
+@property (nonatomic, strong) UIColor *cancelTitleColor;
 
 //Showing and Dismissing methods
 - (void)showPopup;
