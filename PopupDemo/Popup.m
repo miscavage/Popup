@@ -514,7 +514,7 @@ BOOL isBlurSet = YES;
 
 - (void)dismissPopup:(PopupButtonType)buttonType {
     
-    if (!buttonType) {
+    if (buttonType != PopupButtonSuccess && buttonType != PopupButtonCancel) {
         //For tapping and swiping to dismiss
         buttonType = PopupButtonCancel;
     }
