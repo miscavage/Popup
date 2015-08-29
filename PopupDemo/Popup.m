@@ -12,12 +12,10 @@
 static const CGFloat kPopupTitleFontSize = 30;
 static const CGFloat kPopupSubTitleFontSize = 15;
 
-#define SwipeVertical @"VERTICAL"
-#define SwipeHorizontal @"HORIZONTAL"
+NSString const *SwipeVertical = @"VERTICAL";
 
 #define FlatWhiteColor [UIColor colorWithRed:0.937 green:0.945 blue:0.961 alpha:1] /*#eff1f5*/
 #define FlatWhiteDarkColor [UIColor colorWithRed:0.875 green:0.882 blue:0.91 alpha:1] /*#dfe1e8*/
-#define FlatBlackColor [UIColor colorWithRed:0.204 green:0.239 blue:0.275 alpha:1] /*#343d46*/
 
 CGFloat currentKeyboardHeight = 0.0f;
 CGFloat popupDimension = 300.0f;
@@ -61,7 +59,7 @@ BOOL isBlurSet = YES;
 @end
 @implementation Popup
 
-#pragma mark Instance Types
+#pragma mark - Instance Types
 
 - (instancetype)initWithTitle:(NSString *)title
                      subTitle:(NSString *)subTitle
@@ -78,7 +76,6 @@ BOOL isBlurSet = YES;
     }
     
     return self;
-
 }
 
 - (instancetype)initWithTitle:(NSString *)title
@@ -102,7 +99,6 @@ BOOL isBlurSet = YES;
     }
     
     return self;
-    
 }
 
 
@@ -125,13 +121,11 @@ BOOL isBlurSet = YES;
     }
     
     return self;
-    
 }
 
-#pragma mark Creation Methods
+#pragma mark - Creation Methods
 
 - (void)formulateEverything {
-
     mainScreen =  [UIScreen mainScreen];
     
     [self setFrame:mainScreen.bounds];
@@ -144,7 +138,6 @@ BOOL isBlurSet = YES;
     [self setupSubtitle];
     [self setupTextFields];
     [self setupButtons];
-    
 }
 
 - (void)blurBackgroundWithType:(PopupBackGroundBlurType)blurType {
@@ -177,7 +170,6 @@ BOOL isBlurSet = YES;
     [backgroundView setAlpha:0.0];
     
     [self insertSubview:backgroundView belowSubview:popupView];
-    
 }
 
 - (void)makeAlertPopupView {
@@ -193,10 +185,9 @@ BOOL isBlurSet = YES;
     [popupView.layer setBorderWidth:1.0];
     
     [self addSubview:popupView];
-    
 }
 
-#pragma mark Accessor Methods
+#pragma mark - Accessor Methods
 
 - (void)setBackgroundBlurType:(PopupBackGroundBlurType)backgroundBlurType {
     [self blurBackgroundWithType:backgroundBlurType];
@@ -270,7 +261,6 @@ BOOL isBlurSet = YES;
         [tap setNumberOfTapsRequired:1];
         [backgroundView addGestureRecognizer:tap];
     }
-    
 }
 
 - (void)setSwipeToDismiss:(BOOL)swipeToDismiss {
@@ -286,15 +276,13 @@ BOOL isBlurSet = YES;
             panHolder = [NSMutableArray array];
         }
     }
-    
 }
 
-#pragma mark Setup Methods
+#pragma mark - Setup Methods
 
 - (void)setupTitle {
     
     if (pTitle) {
-        
         if (!titleLabel) {
             titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, popupView.frame.size.width - 16, 40)];
             [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:kPopupTitleFontSize]];
@@ -307,7 +295,6 @@ BOOL isBlurSet = YES;
 
         [popupView addSubview:titleLabel];
     }
-    
 }
 
 - (void)setupSubtitle {
@@ -348,7 +335,6 @@ BOOL isBlurSet = YES;
         
         [popupView addSubview:subTitleLabel];
     }
-    
 }
 
 - (void)setupTextFields {
@@ -399,7 +385,6 @@ BOOL isBlurSet = YES;
         }
         else if ([pTextFieldPlaceholderArray count] == 2) {
             [textField1 setFrame:CGRectMake(8, titleHeights + 24, popupView.frame.size.width - 16, textFieldHeight)];
-            
             [textField2 setFrame:CGRectMake(8, titleHeights + textFieldHeight + 32, popupView.frame.size.width - 16, textFieldHeight)];
             
             pTextFieldArray = @[textField1, textField2];
@@ -409,9 +394,7 @@ BOOL isBlurSet = YES;
         }
         else if ([pTextFieldPlaceholderArray count] == 3) {
             [textField1 setFrame:CGRectMake(8, titleHeights + 24, popupView.frame.size.width - 16, textFieldHeight)];
-            
             [textField2 setFrame:CGRectMake(8, titleHeights + textFieldHeight + 32, popupView.frame.size.width - 16, textFieldHeight)];
-            
             [textField3 setFrame:CGRectMake(8, titleHeights + (textFieldHeight * 2) + 40, popupView.frame.size.width - 16, textFieldHeight)];
             
             pTextFieldArray = @[textField1, textField2, textField3];
@@ -420,9 +403,7 @@ BOOL isBlurSet = YES;
             [popupView addSubview:textField2];
             [popupView addSubview:textField3];
         }
-        
     }
-    
 }
 
 - (void)setupButtons {
@@ -440,18 +421,13 @@ BOOL isBlurSet = YES;
         }
         
         //Change the frame to expand the whole width of Popup if there's no successBtn
-        if (!pSuccessTitle) {
-            [cancelBtn setFrame:CGRectMake(8, popupView.frame.size.height - 48, popupView.frame.size.width - 16, 40)];
-        }
-        else {
-            [cancelBtn setFrame:CGRectMake(8, popupView.frame.size.height - 48, popupView.frame.size.width/2 - 12, 40)];
-        }
-        
+        [cancelBtn setFrame:CGRectMake(8, popupView.frame.size.height - 48, !pSuccessTitle ? popupView.frame.size.width - 16 : popupView.frame.size.width/2 - 12, 40)];
+
         [cancelBtn setTitle:pCancelTitle forState:UIControlStateNormal];
         
         [popupView addSubview:cancelBtn];
-        
     }
+    
     if (pSuccessTitle) {
         
         if (!successBtn) {
@@ -475,18 +451,14 @@ BOOL isBlurSet = YES;
         [successBtn setTitle:pSuccessTitle forState:UIControlStateNormal];
         
         [popupView addSubview:successBtn];
-        
     }
-    
     
 }
 
-#pragma mark Presentation Methods
+#pragma mark - Presentation Methods
 
 - (void)showPopup {
-    
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    
     [window addSubview:self];
     
     if( [self.delegate respondsToSelector:@selector(popupWillAppear:)] ) {
@@ -497,20 +469,14 @@ BOOL isBlurSet = YES;
 }
 
 - (void)showAnimation {
-    
     [UIView animateWithDuration:0.1 animations:^{
         [backgroundView setAlpha:1.0];
     }];
     
-    if (incomingTransitionType) {
-        [self configureIncomingAnimationFor:incomingTransitionType];
-    }
-    else {
-        [self configureIncomingAnimationFor:PopupIncomingTransitionTypeAppearCenter];
-    }
+    [self configureIncomingAnimationFor: incomingTransitionType ? incomingTransitionType : PopupIncomingTransitionTypeAppearCenter];
 }
 
-#pragma mark Dismissing Methods
+#pragma mark - Dismissing Methods
 
 - (void)dismissPopup:(PopupButtonType)buttonType {
     
@@ -523,16 +489,10 @@ BOOL isBlurSet = YES;
         [self.delegate popupWillDisappear:self buttonType:buttonType];
     }
     
-    if (outgoingTransitionType) {
-        [self configureOutgoingAnimationFor:outgoingTransitionType withButtonType:buttonType];
-    }
-    else {
-        [self configureOutgoingAnimationFor:PopupOutgoingTransitionTypeDisappearCenter withButtonType:buttonType];
-    }
-
+    [self configureOutgoingAnimationFor:outgoingTransitionType ? outgoingTransitionType : PopupOutgoingTransitionTypeDisappearCenter withButtonType:buttonType];
 }
 
-#pragma mark Button Methods
+#pragma mark - Button Methods
 
 - (void)pressAlertButton:(id)sender {
     
@@ -566,13 +526,11 @@ BOOL isBlurSet = YES;
     }
     
     [self dismissPopup:buttonType];
-    
 }
 
-#pragma mark UIPanGestureRecognizer Methods
+#pragma mark - UIPanGestureRecognizer Methods
 
 - (void)panFired:(id)sender {
-    
     //Make sure this delegate method only gets called once
     static int i = 1;
     if (i == 1) {
@@ -648,15 +606,13 @@ BOOL isBlurSet = YES;
     }
 }
 
-#pragma mark Textfield Getter Methods
+#pragma mark - Textfield Getter Methods
 
 - (NSMutableDictionary *)createDictionaryForTextfields {
     
     static NSMutableDictionary *dictionary = nil;
     
-    if (!dictionary) {
-        dictionary = [[NSMutableDictionary alloc] init];
-    }
+    if (!dictionary) dictionary = [[NSMutableDictionary alloc] init];
     
     for (int i = 0; i < [pTextFieldArray count]; i++) {
         if (i == 0) {
@@ -677,7 +633,6 @@ BOOL isBlurSet = YES;
     }
     
     return dictionary;
-    
 }
 
 - (NSArray *)arrayForStringOfTextfields {
@@ -721,10 +676,9 @@ BOOL isBlurSet = YES;
     }
     else return nil;
     
-    
 }
 
-#pragma mark UITextField Methods
+#pragma mark - UITextField Methods
 
 - (void)setTextFieldTypeForTextFields:(NSArray *)textFieldTypeArray {
     
@@ -773,10 +727,7 @@ BOOL isBlurSet = YES;
         }
         
         counter ++;
-        
     }
-    
-    
 }
 
 - (void)setKeyboardTypeForTextFields:(NSArray *)keyboardTypeArray {
@@ -831,8 +782,6 @@ BOOL isBlurSet = YES;
         }
         counter ++;
     }
-    
-    
 }
 
 - (UIKeyboardType)getKeyboardTypeFromString:(NSString *)string {
@@ -939,35 +888,32 @@ BOOL isBlurSet = YES;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
     [self setPopupFrameForTextField:(int)[textField tag]];
-    
     return YES;
 }
 
 - (void)setPopupFrameForTextField:(int)num {
     
     currentKeyboardHeight = 216;
-    
+    int subtractor = 0;
+
     //Integrate for iPhone 4, 5, 6, 6+ screen sizes
     if ([UIScreen mainScreen].bounds.size.height == 480) {
         //If is iPhone4
-        [UIView animateWithDuration:0.2 animations:^{
-            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height/2 - currentKeyboardHeight - 70, 300, 300)];
-        }];
+        subtractor = 70;
     }
     else if ([UIScreen mainScreen].bounds.size.height == 568) {
         //If is iPhone5
-        [UIView animateWithDuration:0.2 animations:^{
-            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height/2 - currentKeyboardHeight - 30, 300, 300)];
-        }];
+        subtractor = 30;
     }
     else if ([UIScreen mainScreen].bounds.size.height > 568) {
         //If is iPhone6, 6+
-        [UIView animateWithDuration:0.2 animations:^{
-            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height/2 - currentKeyboardHeight, 300, 300)];
-        }];
+        subtractor = 0; //Redunant but specific
     }
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height/2 - currentKeyboardHeight - subtractor, 300, 300)];
+    }];
 }
 
 - (void)dismissKeyboards {
@@ -980,30 +926,26 @@ BOOL isBlurSet = YES;
     }];
 }
 
-#pragma mark Keyboard Methods
+#pragma mark - Keyboard Methods
 
 - (void)setKeyboardNotifications {
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    
 }
 
 - (void)keyboardWillShow:(NSNotification*)notification {
-    
     NSDictionary *info = [notification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     currentKeyboardHeight = kbSize.height;
-    
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark Transition Methods
+#pragma mark - Transition Methods
 
 - (void)configureIncomingAnimationFor:(PopupIncomingTransitionType)trannyType {
 
@@ -1037,7 +979,6 @@ BOOL isBlurSet = YES;
                     [self.delegate popupDidAppear:self];
                 }
             }];
-            
             
             break;
         }
@@ -1341,7 +1282,6 @@ BOOL isBlurSet = YES;
     else if (self.delegate && [self.delegate respondsToSelector:@selector(popupDidDisappear:buttonType:)]) {
         [self.delegate popupDidDisappear:self buttonType:buttonType];
     }
-    
 }
 
 @end
