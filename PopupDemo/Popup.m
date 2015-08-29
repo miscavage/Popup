@@ -460,6 +460,7 @@ BOOL isBlurSet = YES;
 - (void)showPopup {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     [window addSubview:self];
+    [window makeKeyAndVisible];
     
     if( [self.delegate respondsToSelector:@selector(popupWillAppear:)] ) {
         [self.delegate popupWillAppear:self];
