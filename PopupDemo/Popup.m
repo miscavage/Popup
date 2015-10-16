@@ -731,6 +731,42 @@ BOOL isBlurSet = YES;
     }
 }
 
+- (void)setTextFieldTextForTextFields:(NSArray *)textFieldTextArray {
+        
+    for (int i = 0; i < [pTextFieldArray count]; i++) {
+        
+        if (i < 3) {
+            UITextField *field = [pTextFieldArray objectAtIndex:i];
+            NSString *textToFill = [textFieldTextArray objectAtIndex:i];
+            
+            if (field && textToFill) {
+                if ([field isKindOfClass:[UITextField class]]) {
+                    if ([textToFill isKindOfClass:[NSString class]]) {
+                        [field setText:textToFill];
+                    }
+                    else {
+                        NSException *exception = [NSException
+                                                  exceptionWithName:@"Not valid textfield text."
+                                                  reason:@"TextField text needs to be of type NSString."
+                                                  userInfo:nil];
+                        @throw exception;
+                    }
+                }
+            }
+            
+        }
+        else {
+            NSException *exception = [NSException
+                                      exceptionWithName:@"Array exceeds limit."
+                                      reason:@"Popups can only have at most 3 fields, TextFieldTypeArray exceeds this limit."
+                                      userInfo:nil];
+            
+            @throw exception;
+        }
+    }
+    
+}
+
 - (void)setKeyboardTypeForTextFields:(NSArray *)keyboardTypeArray {
     
     NSArray *canBeArray = @[@"",

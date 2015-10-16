@@ -121,6 +121,9 @@ typedef void (^blocky)(void);
 //Set certain textfields if they are secure or not
 - (void)setTextFieldTypeForTextFields:(NSArray *)textFieldTypeArray;
 
+//Set the text of the text field. Pretty much a preset text instead of having a placeholder.
+- (void)setTextFieldTextForTextFields:(NSArray *)textFieldTextArray;
+
 //Does your Popup have rounded corners or doesn't it?
 @property (nonatomic, assign) BOOL roundedCorners;
 
