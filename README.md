@@ -89,6 +89,8 @@ Popup textfields can either be of type `@"PASSWORD"` or `@"DEFAULT"` (they are s
 The example below will set 3 textfields' entry types. The first and second textfield will have secure entry, and the last textfield will have default entry. 
 ```objective-c
 [popup setTextFieldTypeForTextFields:@[@"PASSWORD", @"PASSWORD", @"DEFAULT"]];
+//Can also do this:
+[popup setTextFieldTypeForTextFields:@[@"PASSWORD", @"PASSWORD"]];
 ```
 ###### - Keyboard Types
 You can set each individual textfield's `UIKeyboardType` by putting the type in an array and passing it through the popup.
@@ -96,7 +98,14 @@ The types can be either `@"DEFAULT", @"ASCIICAPABLE", @"NUMBERSANDPUNCTUATION", 
 
 The exmple below will set 3 textfields' `UIKeyboardType` by passing in the type as metioned above into an array. The first textfield will be set to `UIKeyboardTypeDefault`, the second textfield will be set to `UIKeyboardTypeTwitter` the third will be set to `UIKeyboardTypeEmailAddress`.
 ```objective-c
-[popup setKeyboardTypeForTextFields:@"", @"TWITTER", @"EMAIL"];
+[popup setKeyboardTypeForTextFields:@[@"", @"TWITTER", @"EMAIL"]];
+```
+###### - Preset a Textfield's text
+Set a certain textfield's text pretty easily by creating an array and inputting strings for each field. Just like other methods, you can skip an index in the array and that textfield will have no preset text. If no preset text is set, the default placeholder text is shown. The example below is setting text on two textfields in a Popup. The first field will have "@"bobsaget@fullhouse.com", the second "@"Bob Saget", and the third textfield will have no preset. 
+```objective-c
+[popup setTextFieldTextForTextFields:@[@"bobsaget@fullhouse.com", @"Bob Saget", @""]];
+//Can also do this for textfields one and two:
+//[popup setTextFieldTextForTextFields:@[@"bobsaget@fullhouse.com", @"Bob Saget"]];
 ```
 ###### - Keyboard Appearance
 To set the overall `UIKeyboardAppearance` for all textfields in Popup, call one function on your existing Popup:
