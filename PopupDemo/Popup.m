@@ -18,7 +18,8 @@ NSString const *SwipeVertical = @"VERTICAL";
 #define FlatWhiteDarkColor [UIColor colorWithRed:0.875 green:0.882 blue:0.91 alpha:1] /*#dfe1e8*/
 
 CGFloat currentKeyboardHeight = 0.0f;
-CGFloat popupDimension = 300.0f;
+CGFloat popupDimensionWidth = 300.0f;
+CGFloat popupDimensionHeight = 300.0f;
 
 BOOL isBlurSet = YES;
 
@@ -174,7 +175,7 @@ BOOL isBlurSet = YES;
 
 - (void)makeAlertPopupView {
     
-    CGRect rect = CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height/2 - 150, 300, 300);
+    CGRect rect = CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), mainScreen.bounds.size.height/2 - (popupDimensionHeight/2), popupDimensionWidth, popupDimensionHeight);
     
     popupView = [[UIView alloc] initWithFrame:rect];
     
@@ -587,14 +588,14 @@ BOOL isBlurSet = YES;
             [backgroundView setAlpha:0.0];
             if (curY > 115.1) {
                 [UIView animateWithDuration:0.1 animations:^{
-                    popupView.frame = CGRectMake(30, 600, 300, 300);
+                    popupView.frame = CGRectMake(30, 600, popupDimensionWidth, popupDimensionHeight);
                 } completion:^(BOOL finished) {
                     popupView.alpha = 0.0;
                 }];
             }
             else {
                 [UIView animateWithDuration:0.1 animations:^{
-                    popupView.frame = CGRectMake(30, -400, 300, 300);
+                    popupView.frame = CGRectMake(30, -400, popupDimensionWidth, popupDimensionHeight);
                 } completion:^(BOOL finished) {
                     popupView.alpha = 0.0;
                 }];
@@ -949,7 +950,7 @@ BOOL isBlurSet = YES;
     }
     
     [UIView animateWithDuration:0.2 animations:^{
-        [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height/2 - currentKeyboardHeight - subtractor, 300, 300)];
+        [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), mainScreen.bounds.size.height/2 - currentKeyboardHeight - subtractor, popupDimensionWidth, popupDimensionHeight)];
     }];
 }
 
@@ -959,7 +960,7 @@ BOOL isBlurSet = YES;
     
     //Reset the frame of Popup
     [UIView animateWithDuration:0.2 animations:^{
-        [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height/2 - 150, 300, 300)];
+        [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), mainScreen.bounds.size.height/2 - (popupDimensionHeight/2), popupDimensionWidth, popupDimensionHeight)];
     }];
 }
 
@@ -986,7 +987,7 @@ BOOL isBlurSet = YES;
 
 - (void)configureIncomingAnimationFor:(PopupIncomingTransitionType)trannyType {
 
-    CGRect mainRect = CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height/2 - 150, 300, 300);
+    CGRect mainRect = CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), mainScreen.bounds.size.height/2 - (popupDimensionHeight/2), popupDimensionWidth, popupDimensionHeight);
     
     switch (trannyType) {
         case PopupIncomingTransitionTypeBounceFromCenter: {
@@ -1006,7 +1007,7 @@ BOOL isBlurSet = YES;
         }
         case PopupIncomingTransitionTypeSlideFromLeft: {
             
-            [popupView setFrame:CGRectMake(-300, mainScreen.bounds.size.height/2 - 150, 300, 300)];
+            [popupView setFrame:CGRectMake(-popupDimensionWidth, mainScreen.bounds.size.height/2 - (popupDimensionHeight/2), popupDimensionWidth, popupDimensionHeight)];
             
             [UIView animateWithDuration:0.125 animations:^{
                 [popupView setFrame:mainRect];
@@ -1021,7 +1022,7 @@ BOOL isBlurSet = YES;
         }
         case PopupIncomingTransitionTypeSlideFromTop: {
             
-            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - 150, -300, 300, 300)];
+            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), -popupDimensionHeight, popupDimensionWidth, popupDimensionHeight)];
             
             [UIView animateWithDuration:0.125 animations:^{
                 [popupView setFrame:mainRect];
@@ -1036,7 +1037,7 @@ BOOL isBlurSet = YES;
         }
         case PopupIncomingTransitionTypeSlideFromBottom: {
             
-            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height+300, 300, 300)];
+            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), mainScreen.bounds.size.height+popupDimensionHeight, popupDimensionWidth, popupDimensionHeight)];
             
             [UIView animateWithDuration:0.125 animations:^{
                 [popupView setFrame:mainRect];
@@ -1051,7 +1052,7 @@ BOOL isBlurSet = YES;
         }
         case PopupIncomingTransitionTypeSlideFromRight: {
             
-            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width + 300, mainScreen.bounds.size.height/2 - 150, 300, 300)];
+            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width + popupDimensionWidth, mainScreen.bounds.size.height/2 - (popupDimensionHeight/2), popupDimensionWidth, popupDimensionHeight)];
             
             [UIView animateWithDuration:0.125 animations:^{
                 [popupView setFrame:mainRect];
@@ -1098,7 +1099,7 @@ BOOL isBlurSet = YES;
         }
         case PopupIncomingTransitionTypeFallWithGravity: {
             
-            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - 150, -300, 300, 300)];
+            [popupView setFrame:CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), -popupDimensionHeight, popupDimensionWidth, popupDimensionHeight)];
             
             [UIView animateWithDuration:0.4 delay:0.0 usingSpringWithDamping:0.55 initialSpringVelocity:0.9 options:UIViewAnimationOptionTransitionNone animations:^{
                 [popupView setFrame:mainRect];
@@ -1177,7 +1178,7 @@ BOOL isBlurSet = YES;
         }
         case PopupOutgoingTransitionTypeSlideToLeft: {
             
-            CGRect rect = CGRectMake(-300, mainScreen.bounds.size.height/2 - 150, 300, 300);
+            CGRect rect = CGRectMake(-popupDimensionWidth, mainScreen.bounds.size.height/2 - (popupDimensionHeight/2), popupDimensionWidth, popupDimensionHeight);
 
             [UIView animateWithDuration:0.125 animations:^{
                 [popupView setFrame:rect];
@@ -1190,7 +1191,7 @@ BOOL isBlurSet = YES;
         }
         case PopupOutgoingTransitionTypeSlideToTop: {
 
-            CGRect rect = CGRectMake(mainScreen.bounds.size.width/2 - 150, -300, 300, 300);
+            CGRect rect = CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), -popupDimensionHeight, popupDimensionWidth, popupDimensionHeight);
 
             [UIView animateWithDuration:0.125 animations:^{
                 [popupView setFrame:rect];
@@ -1204,7 +1205,7 @@ BOOL isBlurSet = YES;
         }
         case PopupOutgoingTransitionTypeSlideToBottom: {
 
-            CGRect rect = CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height + 300, 300, 300);
+            CGRect rect = CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), mainScreen.bounds.size.height + popupDimensionHeight, popupDimensionWidth, popupDimensionHeight);
 
             [UIView animateWithDuration:0.125 animations:^{
                 [popupView setFrame:rect];
@@ -1218,7 +1219,7 @@ BOOL isBlurSet = YES;
         }
         case PopupOutgoingTransitionTypeSlideToRight: {
 
-            CGRect rect = CGRectMake(mainScreen.bounds.size.width + 300, mainScreen.bounds.size.height/2 - 150, 300, 300);
+            CGRect rect = CGRectMake(mainScreen.bounds.size.width + popupDimensionWidth, mainScreen.bounds.size.height/2 - (popupDimensionHeight/2), popupDimensionWidth, popupDimensionHeight);
 
             [UIView animateWithDuration:0.125 animations:^{
                 [popupView setFrame:rect];
@@ -1255,8 +1256,8 @@ BOOL isBlurSet = YES;
         }
         case PopupOutgoingTransitionTypeFallWithGravity: {
             
-            CGRect initialRect = CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height/2 - 150, 300, 300);
-            CGRect endingRect = CGRectMake(mainScreen.bounds.size.width/2 - 150, mainScreen.bounds.size.height + 300, 300, 300);
+            CGRect initialRect = CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), mainScreen.bounds.size.height/2 - (popupDimensionHeight/2), popupDimensionWidth, popupDimensionHeight);
+            CGRect endingRect = CGRectMake(mainScreen.bounds.size.width/2 - (popupDimensionWidth/2), mainScreen.bounds.size.height + popupDimensionHeight, popupDimensionWidth, popupDimensionHeight);
 
             [UIView animateWithDuration:0.1 delay:0.0 usingSpringWithDamping:0.24 initialSpringVelocity:0.9 options:UIViewAnimationOptionTransitionNone animations:^{
                 [popupView setFrame:initialRect];
