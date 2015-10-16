@@ -518,7 +518,7 @@ BOOL isBlurSet = YES;
         if (pCancelBlock) isBlock = true;
     }
     
-    if (!isBlock && [self.delegate respondsToSelector:@selector(popupPressButton:buttonType:)]) {
+    if ([self.delegate respondsToSelector:@selector(popupPressButton:buttonType:)]) {
         [self.delegate popupPressButton:self buttonType:buttonType];
     }
     
